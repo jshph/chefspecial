@@ -7,8 +7,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
         SC.initialize({
-            client_id: 'd8fef5dfa959bb728846bcb61636f77a',
-            redirect_uri: 'http://localhost/chefspecial/test.html'
+            //MAC:
+            client_id: '8077356610fc30a730afebd4e4c8b422',
+            redirect_uri: 'http://localhost:8888/chefspecial/test.html'
+            //WINDOWS:
+            
         });
 
         function getUserPlaylist () {
@@ -41,14 +44,25 @@
                     SC.connect(function(){
                         //var newPlaylist = 'electronic';
                        //console.log(newPlaylist);
-                        SC.get('/me/playlists/', function(playlist) {
+                        SC.get('/me/playlists/', function(playlists) {
                             //$('#username').html(me.username);
-                            console.log(playlist[0].permalink_url);
-                            $(playlist).each(function(index, playlist) {
-                                $('.playlistWrapper').append($('<button></button>').html(playlist.title));
+                            var clickedIndex;
+                            $(playlists).each(function(index, playlist) {
+                                //console.log(playlist.permalink_url);
+                                var ele = $("<button>").data("arrayIndex", index)
+                                                .on("click", function() {
+                                                    var clickedIndex = $(this).index;
+                                                    //console.log(playlist.permalink_url);
+                                                });
+                                $('.playlistWrapper').append(ele);
+                                $(ele).html(playlist.title);
                             });
-                            //SC.oEmbed(playlist[0].permalink_url, document.getElementById('displayContainer'));
-                            
+
+                            console.log(playlists[clickedIndex]);
+                            // $(playlists).each(function(index, playlist) {
+                            //     console.log(playlist.permalink_url);
+                            // //SC.oEmbed(playlist[0].permalink_url, document.getElementById('displayContainer'));
+                            // }) 
                             
                             
                             //addUserPlaylist();
