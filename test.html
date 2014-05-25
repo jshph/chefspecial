@@ -44,7 +44,10 @@
                         SC.get('/me/playlists/', function(playlist) {
                             //$('#username').html(me.username);
                             console.log(playlist[0].permalink_url);
-                            SC.oEmbed(playlist[0].permalink_url, document.getElementById('displayContainer'));
+                            $(playlist).each(function(index, playlist) {
+                                $('.playlistWrapper').append($('<button></button>').html(playlist.title));
+                            });
+                            //SC.oEmbed(playlist[0].permalink_url, document.getElementById('displayContainer'));
                             
                             
                             
@@ -66,7 +69,17 @@
             
    // });
 
+
+/* $(document).ready(function() {
+  SC.get('/tracks', { genres: 'hiphop', shared_to_count: 1}, function(tracks) {
+  $(tracks).each(function(index, track) {
+  $('#results').append($('<li></li>').html(track.title + ' - ' + track.genre));
+   });
+  });
+}); */
 </script>
+
+
 
 </head>
 <body>
@@ -77,7 +90,7 @@
         <p>Hello your name is <span id="username"></span></p>
         <button id="addPlaylist">Add a Playlist</button>
         </br>
-        
+        <div class="playlistWrapper"></div>
         <div class="songsContainer" id="displayContainer"></div>
         
 
