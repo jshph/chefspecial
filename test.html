@@ -11,7 +11,8 @@
             client_id: '8077356610fc30a730afebd4e4c8b422',
             redirect_uri: 'http://localhost:8888/chefspecial/test.html'
             //WINDOWS:
-            
+            //client_id: 'd8fef5dfa959bb728846bcb61636f77a',
+            //redirect_uri: 'http://localhost/chefspecial/test.html'
         });
 
         function getUserPlaylist () {
@@ -39,8 +40,9 @@
             }); */
         
         //already inside a GET request of /me
-        function findSongs(playlist) {
-
+        function addSongs(playlist) {
+            var foundSongs = [144437169];
+            SC.put(playlist.uri, { playlist: { tracks: foundSongs } });
         }
 
         $(document).ready(function(){
@@ -54,7 +56,9 @@
                             var ele = $("<button>")//.data("arrayIndex", index)
                                             .on("click", function() {
                                                 //playlist process and render here
-                                                findSongs(playlist);
+                                                //addSongs(playlist);
+                                                var foundSongs = [144437169];
+                                                SC.put(playlist.uri, { playlist: { tracks: foundSongs } });
                                                 SC.oEmbed(playlist.permalink_url, document.getElementById('displayContainer'));
                                             });
                             $('.playlistWrapper').append(ele);
