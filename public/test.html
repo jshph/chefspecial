@@ -45,10 +45,16 @@
             SC.get('/tracks', { limit: numTracks, q: playlist.genre, license: 'cc-by-sa'}, function(tracks) {
                 $('#suggestedSongsContainer').append($("<p>You might also want to check out</p>"));
                 $(tracks).each(function(index, track) {
+                    //var tags = [{"heavy": 1}, {"smooth": 2}, {"melancholic": 2}, {"nostalgic": 1}];
+                    var tags = ["heavy", "smooth", "melancholic", "nostalgic"];
+
                     //SC.oEmbed(track.permalink_url, document.getElementById(index));
-                    if (track.playback_count < 100) {
+                    if (track.playback_count < 40) {
                     //    nicheTracks.push(tracks[i]);
-                        $('#suggestedSongsContainer').append($("<a href='" + track.permalink_url + "'>" + track.title + "</a><br>"));
+                        $('#suggestedSongsContainer').append($("<a href='" + track.permalink_url + "'>" + track.title + "</a>"+ " " + track.playback_count + "<br>"));
+                        $(tags).each(function(index, tag) {
+                            $('#suggestedSongsContainer').append($("<a href style='color:white'>" + tag + "</a><br>"));
+                        });
                         console.log(track.permalink_url);
                         SC.oEmbed(track.permalink_url, this);
                     }
