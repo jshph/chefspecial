@@ -2,8 +2,11 @@
 <head>
     <title>Sound Butler, at your service</title>
     <link rel="stylesheet" type="text/css" href="../main.css"/>
+    <link rel="stylesheet" type="text/css" href="../soundcloud-custom-player/css/sc-player-minimal.css"/>
     <script src="http://connect.soundcloud.com/sdk.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../soundcloud-custom-player/js/sc-player.js"></script>
+    <script src="../soundcloud-custom-player/js/soundcloud.player.api.js"></script>
     <script>
         SC.initialize({
             //MAC:
@@ -14,12 +17,12 @@
             //redirect_uri: 'http://localhost/chefspecial/test.html'
         });
 
-        function getUserPlaylist () {
+        /*function getUserPlaylist () {
             $("button").on('click', function(){
                 var newPlaylist = prompt("Playlist Name:");
                 return newPlaylist;
             });
-        };
+        };*/
 
         /*function addUserPlaylist () {
             SC.get('/playlists/newPlaylist', function(track) {
@@ -43,7 +46,7 @@
             var nicheTracks = [];
             var numTracks = 300;
             SC.get('/tracks', { limit: numTracks, q: playlist.genre, license: 'cc-by-sa'}, function(tracks) {
-                $('#suggestedSongsContainer').append($("<p>You might also want to check out</p>"));
+                $('.post').append($("<p>You might also want to check out</p>"));
                 $(tracks).each(function(index, track) {
                     //var tags = [{"heavy": 1}, {"smooth": 2}, {"melancholic": 2}, {"nostalgic": 1}];
                     var tags = ["heavy", "smooth", "melancholic", "nostalgic"];
@@ -51,9 +54,9 @@
                     //SC.oEmbed(track.permalink_url, document.getElementById(index));
                     if (track.playback_count < 40) {
                     //    nicheTracks.push(tracks[i]);
-                        $('#suggestedSongsContainer').append($("<a href='" + track.permalink_url + "'>" + track.title + "</a>"+ " " + track.playback_count + "<br>"));
+                        $('.post').append($("<a class='sc-player' href='" + track.permalink_url + "'>" + track.title + "</a>"+ " " + track.playback_count + "<br>"));
                         $(tags).each(function(index, tag) {
-                            $('#suggestedSongsContainer').append($("<a href style='color:white'>" + tag + "</a><br>"));
+                            $('.post').append($("<a href style='color:white'>" + tag + "</a><br>"));
                         });
                         console.log(track.permalink_url);
                         SC.oEmbed(track.permalink_url, this);
@@ -128,7 +131,8 @@
         </br>
         <div class="playlistWrapper"></div>
         <div class="songsContainer" id="displayContainer"></div>
-        <div id="suggestedSongsContainer"></div>
+       <!--  <div id="suggestedSongsContainer"></div> -->
+        <div class="post"></div>
 
         
 
