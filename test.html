@@ -42,28 +42,18 @@
                $('a.connect').on('click', function(e){
                     e.preventDefault();
                     SC.connect(function(){
-                        //var newPlaylist = 'electronic';
-                       //console.log(newPlaylist);
                         SC.get('/me/playlists/', function(playlists) {
                             //$('#username').html(me.username);
-                            var clickedIndex;
                             $(playlists).each(function(index, playlist) {
                                 //console.log(playlist.permalink_url);
-                                var ele = $("<button>").data("arrayIndex", index)
+                                var ele = $("<button>")//.data("arrayIndex", index)
                                                 .on("click", function() {
-                                                    var clickedIndex = $(this).index;
-                                                    //console.log(playlist.permalink_url);
+                                                    //playlist process and render here
+                                                    SC.oEmbed(playlist.permalink_url, document.getElementById('displayContainer'));
                                                 });
                                 $('.playlistWrapper').append(ele);
                                 $(ele).html(playlist.title);
                             });
-
-                            console.log(playlists[clickedIndex]);
-                            // $(playlists).each(function(index, playlist) {
-                            //     console.log(playlist.permalink_url);
-                            // //SC.oEmbed(playlist[0].permalink_url, document.getElementById('displayContainer'));
-                            // }) 
-                            
                             
                             //addUserPlaylist();
                         });
