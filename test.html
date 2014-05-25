@@ -1,34 +1,90 @@
 <html>
 <head>
     <title>Sound Butler, at your service</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
     <script src="sdk.js"></script>
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
         SC.initialize({
-            client_id: 'd8fef5dfa959bb728846bcb61636f77a'
+            client_id: 'd8fef5dfa959bb728846bcb61636f77a',
+            redirect_uri: 'http://localhost/chefspecial/test.html'
         });
 
-        var trackList = [];
-        $(document).ready(function() {
-            SC.get('/tracks/290', function(track) {
+        function getUserPlaylist () {
+            $("button").on('click', function(){
+                var newPlaylist = prompt("Playlist Name:");
+                return newPlaylist;
+            });
+        };
 
-            //for each track in trackList, perform GET request to favoriters to search their favorited tracks
-            
-
-
-
-
-
-            // final display of soundcloud widget
+        /*function addUserPlaylist () {
+            SC.get('/playlists/newPlaylist', function(track) {
                 SC.oEmbed(track.permalink_url, document.getElementById('displayContainer'));
             });
-    });
+        }; */
+        
 
-    </script>
+        //var trackList = [];
+       /* $(document).ready(function() {
+          
+            SC.get('/playlists/electronic', function(track) {
+
+            //for each track in trackList, perform GET request to favoriters to search their favorited tracks
+            // final display of soundcloud widget
+                SC.oEmbed(track.permalink_url, document.getElementById('displayContainer'));
+            }); */
+            
+            $(document).ready(function(){
+               $('a.connect').on('click', function(e){
+                    e.preventDefault();
+                    SC.connect(function(){
+                        //var newPlaylist = 'electronic';
+                       //console.log(newPlaylist);
+                        SC.get('/me/playlists/', function(playlist) {
+                            //$('#username').html(me.username);
+                            console.log(playlist[0].permalink_url);
+                            SC.oEmbed(playlist[0].permalink_url, document.getElementById('displayContainer'));
+                            
+                            
+                            
+                            //addUserPlaylist();
+                        });
+                    });
+                });
+            });
+                
+                /*$('a.connect').on('click', function(e) {
+                    e.preventDefault();
+                    SC.connect(function(){
+                    SC.get('/me', function(me) {
+                        $('#username').html(me.username);
+                    SC.isConnected();   
+                    });
+                });
+              }); */    
+            
+   // });
+
+</script>
+
 </head>
 <body>
-    <p>hello world</p>
-    <div style="height:400px; width: 400px" id="displayContainer"></div>
+    <div class="wrapper">
+        
+        <p>Chef's Special</p>
+        <a href="#" class="connect">Connect With SoundCloud</a>
+        <p>Hello your name is <span id="username"></span></p>
+        <button id="addPlaylist">Add a Playlist</button>
+        </br>
+        
+        <div class="songsContainer" id="displayContainer"></div>
+        
+
+        </div>
+    
+        
+    
 </body>
 
 
