@@ -7,11 +7,11 @@
     <script>
         SC.initialize({
             //MAC:
-            client_id: '8077356610fc30a730afebd4e4c8b422',
-            redirect_uri: 'http://localhost:8888/chefspecial/test.html'
+            //client_id: '8077356610fc30a730afebd4e4c8b422',
+            //redirect_uri: 'http://localhost:8888/chefspecial/test.html'
             //WINDOWS:
-            //client_id: 'd8fef5dfa959bb728846bcb61636f77a',
-            //redirect_uri: 'http://localhost/chefspecial/test.html'
+            client_id: 'd8fef5dfa959bb728846bcb61636f77a',
+            redirect_uri: 'http://localhost/chefspecial/test.html'
         });
 
         function getUserPlaylist () {
@@ -71,6 +71,9 @@
            $('a.connect').on('click', function(e){
                 e.preventDefault();
                 SC.connect(function(){
+                    SC.get('/me', function(me){
+                        $('#username').html(me.username);
+                    });
                     SC.get('/me/playlists/', function(playlists) {
                         //$('#username').html(me.username);
                         $(playlists).each(function(index, playlist) {
@@ -123,7 +126,7 @@
         
         <p>Chef's Special</p>
         <a href="#" class="connect">Connect With SoundCloud</a>
-        <!-- <p>Hello your name is <span id="username"></span></p> -->
+        <p>Welcome <span id="username"></span></p>
         <!-- <button id="addPlaylist">Add a Playlist</button> -->
         </br>
         <div class="playlistWrapper"></div>
