@@ -37,30 +37,36 @@
             // final display of soundcloud widget
                 SC.oEmbed(track.permalink_url, document.getElementById('displayContainer'));
             }); */
-            
-            $(document).ready(function(){
-               $('a.connect').on('click', function(e){
-                    e.preventDefault();
-                    SC.connect(function(){
-                        SC.get('/me/playlists/', function(playlists) {
-                            //$('#username').html(me.username);
-                            $(playlists).each(function(index, playlist) {
-                                //console.log(playlist.permalink_url);
-                                var ele = $("<button>")//.data("arrayIndex", index)
-                                                .on("click", function() {
-                                                    //playlist process and render here
-                                                    SC.oEmbed(playlist.permalink_url, document.getElementById('displayContainer'));
-                                                });
-                                $('.playlistWrapper').append(ele);
-                                $(ele).html(playlist.title);
-                            });
-                            
-                            //addUserPlaylist();
+        
+        //already inside a GET request of /me
+        function findSongs(playlist) {
+
+        }
+
+        $(document).ready(function(){
+           $('a.connect').on('click', function(e){
+                e.preventDefault();
+                SC.connect(function(){
+                    SC.get('/me/playlists/', function(playlists) {
+                        //$('#username').html(me.username);
+                        $(playlists).each(function(index, playlist) {
+                            //console.log(playlist.permalink_url);
+                            var ele = $("<button>")//.data("arrayIndex", index)
+                                            .on("click", function() {
+                                                //playlist process and render here
+                                                findSongs(playlist);
+                                                SC.oEmbed(playlist.permalink_url, document.getElementById('displayContainer'));
+                                            });
+                            $('.playlistWrapper').append(ele);
+                            $(ele).html(playlist.title);
                         });
+                        
+                        //addUserPlaylist();
                     });
                 });
             });
-                
+        });
+            
                 /*$('a.connect').on('click', function(e) {
                     e.preventDefault();
                     SC.connect(function(){
