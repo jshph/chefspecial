@@ -1,10 +1,21 @@
+body {
+    background-color: gray;
+}
+
 .wrapper {
-	border: 1px solid black;
+    background-color: #4DC5FF;
+	border: 1px solid white;
 	margin: 0 auto;
 	width: 500px;
+    font-family: Helvetica;
+    padding:15px;
 }
 
 .playlistWrapper {
 	width: 500px;
 	border: 1px solid red;
+}
+
+#suggestedSongsContainer {
+    color:white;
 }
