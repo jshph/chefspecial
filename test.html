@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Sound Butler, at your service</title>
+    <script src="sdk.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        SC.initialize({
+            client_id: 'd8fef5dfa959bb728846bcb61636f77a'
+        });
+
+        var trackList = [];
+        $(document).ready(function() {
+            SC.get('/tracks/290', function(track) {
+
+            //for each track in trackList, perform GET request to favoriters to search their favorited tracks
+            
+
+
+
+
+
+            // final display of soundcloud widget
+                SC.oEmbed(track.permalink_url, document.getElementById('displayContainer'));
+            });
+    });
+
+    </script>
+</head>
+<body>
+    <p>hello world</p>
+    <div style="height:400px; width: 400px" id="displayContainer"></div>
+</body>
+
+
+
+
+
+
+
+
+
+  <!--for (var i = 0; i < playlist.tracks.length; i++) {
+    //console.log(playlist.tracks[i].permalink_url);
+    trackList.push(playlist.tracks[i].permalink_url);
+  }
+
+  //trackList updated now
+    for (var i = 0; i < trackList.length; i++) {
+        SC.oEmbed(trackList[i], document.getElementById('displayContainer'));
+    }-->
