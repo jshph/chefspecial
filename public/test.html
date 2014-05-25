@@ -10,11 +10,11 @@
     <script>
         SC.initialize({
             //MAC:
-            //client_id: '8077356610fc30a730afebd4e4c8b422',
-            //redirect_uri: 'http://localhost:8888/chefspecial/test.html'
+            client_id: '8077356610fc30a730afebd4e4c8b422',
+            redirect_uri: 'http://localhost:8888/chefspecial/test.html'
             //WINDOWS:
-            client_id: 'd8fef5dfa959bb728846bcb61636f77a',
-            redirect_uri: 'http://localhost/chefspecial/test.html'
+            //client_id: 'd8fef5dfa959bb728846bcb61636f77a',
+            //redirect_uri: 'http://localhost/chefspecial/test.html'
         });
 
         /*function getUserPlaylist () {
@@ -46,6 +46,7 @@
             var nicheTracks = [];
             var numTracks = 300;
             SC.get('/tracks', { limit: numTracks, q: playlist.genre, license: 'cc-by-sa'}, function(tracks) {
+                $('.post').empty();
                 $('.post').append($("<p>You might also want to check out</p>"));
                 $(tracks).each(function(index, track) {
                     //var tags = [{"heavy": 1}, {"smooth": 2}, {"melancholic": 2}, {"nostalgic": 1}];
@@ -127,7 +128,7 @@
 <body>
     <div class="wrapper">
         
-        <p>Chef's Special</p>
+        <h1>Chef's Special</h1>
         <a href="#" class="connect">Connect With SoundCloud</a>
         <p>Welcome <span id="username"></span></p>
         <!-- <button id="addPlaylist">Add a Playlist</button> -->
