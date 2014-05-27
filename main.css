@@ -1,5 +1,7 @@
 body {
     background-color: gray;
+    font-family: Helvetica;
+    color: white;
 }
 
 .wrapper {
