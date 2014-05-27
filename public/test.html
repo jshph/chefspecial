@@ -49,18 +49,12 @@
                 $('.post').empty();
                 $('.post').append($("<p>You might also want to check out</p>"));
                 $(tracks).each(function(index, track) {
-                    //var tags = [{"heavy": 1}, {"smooth": 2}, {"melancholic": 2}, {"nostalgic": 1}];
                     var tags = ["heavy", "smooth", "melancholic", "nostalgic"];
-
-                    //SC.oEmbed(track.permalink_url, document.getElementById(index));
+                    $('.post').append($("<div class='sugTrack' id='track_" + index + "'></div>"));
                     if (track.playback_count < 40) {
-                    //    nicheTracks.push(tracks[i]);
-                        $('.post').append($("<a class='sc-player' href='" + track.permalink_url + "'>" + track.title + "</a>"+ " " + track.playback_count + "<br>"));
-                        $(tags).each(function(index, tag) {
-                            $('.post').append($("<a href style='color:white'>" + tag + "</a><br>"));
-                        });
-                        console.log(track.permalink_url);
-                        SC.oEmbed(track.permalink_url, this);
+                        nicheTracks.push(track);
+                        //var $embed = "div"
+                        SC.oEmbed(track.permalink_url, {maxheight: '150px'}, document.getElementById("track_" + index));
                     }
                 });
             });
@@ -68,6 +62,7 @@
             for (var i = 0; i < nicheTracks.length; i++) {
                 console.log(nicheTracks[i].title + " " + nicheTracks[i].playback_count);
             }
+
         }
 
 
@@ -86,8 +81,8 @@
                                             .on("click", function() {
                                                 //playlist process and render here
                                                 addSongs(playlist);
-                                                /*var foundSongs = [144437169];
-                                                SC.put(playlist.uri, { playlist: { tracks: foundSongs } });*/
+                                                //var foundSongs = [144437169];
+                                                SC.put(playlist.uri, { playlist: { tracks: [144437169] } });
                                                 SC.oEmbed(playlist.permalink_url, document.getElementById('displayContainer'));
                                             });
                             $('.playlistWrapper').append(ele);

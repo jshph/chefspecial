@@ -23,3 +23,7 @@ body {
 #suggestedSongsContainer a {
 	color: black;
 }
+
+.sugTrack {
+    margin-bottom: 15px;
+}
