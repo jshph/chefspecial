@@ -1,8 +1,8 @@
 var sugTracksData = new Firebase("https://chefspecial.firebaseio.com");
 SC.initialize({
     //MAC:
-    client_id: '8077356610fc30a730afebd4e4c8b422',
-    redirect_uri: 'http://localhost:8888/chefspecial/test.html'
+    client_id: 'd8fef5dfa959bb728846bcb61636f77a',
+    redirect_uri: 'https://chefspecial.firebaseapp.com/index.html'
     //WINDOWS:
     //client_id: 'd8fef5dfa959bb728846bcb61636f77a',
     //redirect_uri: 'http://localhost/chefspecial/test.html'

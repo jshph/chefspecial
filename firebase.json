@@ -1,0 +1,8 @@
+{
+  "firebase": "chefspecial",
+  "ignore": [
+    "firebase.json",
+    ".*",
+    "**/node_modules/**"
+  ]
+}
