@@ -58,6 +58,65 @@ function addSongs(playlist) {
     });
 }
 
+/*
+NEW STRATEGY:
+- don't display the playlist widget. // done
+- only display the playlist choices as buttons for the user to choose. // done
+- display the tracks in the playlist as text for user reference // done
+- upon click, search for related tracks. // done ~ ineffective for now
+- display found tracks ONE AT A TIME in the widget. // done ~ track loads when current one finishes.
+- user plays track, computer prompts user to verify tags. etc etc...
+ */
+
+function displayPlaylistTracks(playlist) {
+    var trackAry = playlist.tracks.slice();
+    //console.log(trackAry);
+    $('#displayContainer').append("<p>Tracks in " + playlist.title + "<p>");
+    $(trackAry).each(function(index, track) {
+        var title = $("<div class='playlist_track_title'>" + track.title + "</div>");
+        $('#displayContainer').append(title);
+    });
+}
+
+/**
+ * Searches for similar track to the ones in the playlist.
+ * For now, fake it by using a fixed track.
+ * @param  {SoundCloud playlist object} playlist Has characteristics to search off of.
+ * @return {[type]}          Track object (JSON to add to Firebase)
+ */
+function searchForTrack(playlist) {
+    var foundTrack = {
+        "trackObj" : "",
+        "tags" : [{
+            name: "test tag",
+            score : 0
+        }]
+        }
+    SC.get('/tracks', { limit: 1, q: playlist.genre, license: 'cc-by-sa'}, function(tracks) {
+        foundTrack.trackObj = tracks[0];
+        loadFoundSong(foundTrack.trackObj);
+    });
+}
+
+function loadFoundSong(track) {
+    var widgetIframe = document.getElementById('sc-widget'),
+        widget       = SC.Widget(widgetIframe);
+        newSoundUrl = 'http://api.soundcloud.com/tracks/' + track.id; // 'http://api.soundcloud.com/tracks/13692671';
+
+    console.log("attempting to load song");
+    widget.bind(SC.Widget.Events.READY, function() {
+      // load new widget
+      widget.bind(SC.Widget.Events.FINISH, function() {
+        console.log("song finished!");
+        widget.load(newSoundUrl, {
+          show_artwork: false
+        });
+        searchForTrack(globalPlaylist); // recursion here.
+      });
+    });
+}
+
+var globalPlaylist; // fake for now, to work with in loadFoundSong's recursion
 
 $(document).ready(function(){
    $('a.connect').on('click', function(e){
@@ -73,14 +132,17 @@ $(document).ready(function(){
                     var ele = $("<button>")//.data("arrayIndex", index)
                                     .on("click", function() {
                                         //playlist process and render here
-                                        addSongs(playlist);
+                                        //addSongs(playlist);
                                         //SC.put(playlist.uri, { playlist: { tracks: [144437169] } });
-                                        SC.oEmbed(playlist.permalink_url, document.getElementById('displayContainer'));
+                                        globalPlaylist = playlist;
+                                        displayPlaylistTracks(playlist);
+                                        searchForTrack(playlist); // calls loadFoundSong when done
+                                        //console.log(foundTrack);
+                                        //loadFoundSong(foundTrack.trackObj[0]);
                                     });
                     $('.playlistWrapper').append(ele);
                     $(ele).html(playlist.title);
                 });
-                
                 //addUserPlaylist();
             });
         });
