@@ -87,33 +87,62 @@ function displayPlaylistTracks(playlist) {
 function searchForTrack(playlist) {
     var foundTrack = {
         "trackObj" : "",
-        "tags" : [{
-            name: "test tag",
-            score : 0
-        }]
+        "tags" : [
+            {
+                name: "test tag",
+                score : 0
+            } ,
+            {
+                name: "test tag 2",
+                score: 0
+            }
+        ]
         }
     SC.get('/tracks', { limit: 1, q: playlist.genre, license: 'cc-by-sa'}, function(tracks) {
         foundTrack.trackObj = tracks[0];
-        loadFoundSong(foundTrack.trackObj);
+        loadFoundSong(foundTrack);
     });
 }
 
+/**
+ * After a new song is found, it's loaded in the player.
+ * Starts out with default track, but once that finishes, the found song
+ * is loaded into that widget. Recursive in that searchForTrack will search
+ * and then call loadFoundSong again.
+ * 
+ * @param  {[type]} track [description]
+ * @return {[type]}       [description]
+ */
 function loadFoundSong(track) {
     var widgetIframe = document.getElementById('sc-widget'),
         widget       = SC.Widget(widgetIframe);
-        newSoundUrl = 'http://api.soundcloud.com/tracks/' + track.id; // 'http://api.soundcloud.com/tracks/13692671';
+        newSoundUrl = 'http://api.soundcloud.com/tracks/' + track.trackObj.id; // 'http://api.soundcloud.com/tracks/13692671';
 
     console.log("attempting to load song");
     widget.bind(SC.Widget.Events.READY, function() {
-      // load new widget
+
       widget.bind(SC.Widget.Events.FINISH, function() {
         console.log("song finished!");
         widget.load(newSoundUrl, {
           show_artwork: false
         });
-        searchForTrack(globalPlaylist); // recursion here.
+
+        // tag feedback here.
+        speakTags(track); //recursion in here.
       });
     });
+}
+
+function speakTags(track) {
+    var tts = new GoogleTTS();
+    var tagString = "";
+    $(track.tags).each(function(index, tag) {
+        tagString += " " + tag.name;
+    });
+
+    var speakString = "This song was tagged" + tagString + ". Which of these tags sound most accurate to you?";
+
+    tts.play(speakString, searchForTrack(globalPlaylist)); //callback should be to autoplay the next song.
 }
 
 var globalPlaylist; // fake for now, to work with in loadFoundSong's recursion
