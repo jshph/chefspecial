@@ -1,11 +1,14 @@
 var sugTracksData = new Firebase("https://chefspecial.firebaseio.com");
 SC.initialize({
-    //MAC:
+    //Firebase:
     client_id: 'd8fef5dfa959bb728846bcb61636f77a',
     redirect_uri: 'https://chefspecial.firebaseapp.com/index.html'
-    //WINDOWS:
-    //client_id: 'd8fef5dfa959bb728846bcb61636f77a',
-    //redirect_uri: 'http://localhost/chefspecial/test.html'
+    //MAC local:
+    //client_id: '8077356610fc30a730afebd4e4c8b422',
+    //redirect_uri: 'http://localhost:8888/chefspecial/index.html'
+    //WINDOWS local:
+    //client_id: 'a15dbe92a311723a1ffe21a3d3fc9676',
+    //redirect_uri: 'http://localhost/chefspecial/index.html'
 });
 
 /*function getUserPlaylist () {
