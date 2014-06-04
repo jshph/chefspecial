@@ -1,8 +1,10 @@
 <html>
 <head>
     <title>Sound Butler, at your service</title>
-    <link rel="stylesheet" type="text/css" href="../main.css"/>
-    <link rel="stylesheet" type="text/css" href="../soundcloud-custom-player/css/sc-player-minimal.css"/>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+    <link rel="stylesheet" type="text/css" href="soundcloud-custom-player/css/sc-player-minimal.css"/>
+
+    <script src="js/async.js"></script>
 
     <script src="js/sdk.js"></script>
     <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
@@ -14,29 +16,37 @@
     <script src="soundcloud-custom-player/js/soundcloud.player.api.js"></script>
     <script src="js/main.js"></script>
 
-    <script type="text/javascript" src="https://rawgithub.com/hiddentao/google-tts/master/google-tts.min.js"></script>
+    <script type="text/javascript" src="google-tts/src/google-tts.js"></script>
+    <script type="text/javascript" src="mespeak/mespeak.full.js"></script>
 
 
 </head>
 <body>
-    <div class="wrapper">
-        
-        <h1>Chef's Special</h1>
-        <a href="#" class="connect">Connect With SoundCloud</a>
-        <p>Welcome <span id="username"></span></p>
-        <!-- <button id="addPlaylist">Add a Playlist</button> -->
-        </br>
-        <div class="playlistWrapper"></div>
-        <div class="songsContainer" id="displayContainer"></div>
-       <!--  <div id="suggestedSongsContainer"></div> -->
-        <iframe id="sc-widget" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
-        <div class="post"></div>
+        <h1 style="text-align:center">Chef's Special</h1>
+        <div class="wrapper">
+            <!-- <a href="#" class="connect">Connect With SoundCloud</a>
+            <p>Welcome <span id="username"></span></p> -->
+            <!-- <button id="addPlaylist">Add a Playlist</button> -->
+            </br>
+            <div class="playlistWrapper">
+                <h3>Available playlists:</h3>
+            </div>
+            <div class="songsContainer" id="displayContainer"></div>
+           <!--  <div id="suggestedSongsContainer"></div> -->
+           <div id="searchResults">
+           </div>
+           <div class="iframeWrapper">
+                <iframe id="sc-widget" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=false"></iframe>
+            </div>
+            <div class="tagsInput">
+                <div class="existingTags">
+                </div>
+                <input id="tags_input"/><button id="tag_submit_button">submit tags</button><p>(separate by comma and space)</p>
+            </div>
+            
 
-        
-
+            </div>
         </div>
-    
-        
     
 </body>
 
